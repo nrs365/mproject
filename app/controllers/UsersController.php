@@ -4,11 +4,10 @@ class UsersController extends \BaseController {
 
 	public function __construct()
 	{
-    	// call base controller constructor
     	parent::__construct();
     	
     	// check if the user is authenticated unless home page or registration(create)
-    	$this->beforeFilter('auth', array('except' => array('show', 'index')));
+    	$this->beforeFilter('auth', array('except' => array('create', 'index')));
 	}
 
 	/**
@@ -66,8 +65,6 @@ class UsersController extends \BaseController {
 	{
 		//
 		// $user = Auth::user();
-
-		// //prepare data for passing to user dashboard view
 		// $data = [
 		// 	'user' => $user,
 		// 	'first' => $first,
@@ -88,8 +85,6 @@ class UsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
-
 		$user = Auth::User();
 		//create error messages
 		$messageValue = 'Your information has been updated.';
@@ -105,7 +100,9 @@ class UsersController extends \BaseController {
 			$user->last = Input::get('last');
 			$user->password = Input::get('password');
 			$user->save();
-		}	
+		}
+		Session::flash('successMessage', $messageValue);
+		return Redirect::action('UsersController@show', $user->first);
 	}
 
 
