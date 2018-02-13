@@ -13,9 +13,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $table = 'clients';
     public static $rules = [
-        'company_name'=>'required'
+        'company_name' => 'required'
     ];
     public static $client_update_rules = [
-        'company_name'=>'required'
+        'company_name' => 'required'
     ];
 }

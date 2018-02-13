@@ -17,15 +17,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'users';
 
 	public static $user_rules = [
-    	'first'=>'required',
-    	'last'=>'required',
-    	'username'=>'reqired|max:15',
-    	'password'=>'required|min:6'
+    	'first'    => 'required',
+        'last'     => 'required',
+        'username' => 'required|max:25',
+        'password' => 'required|min:6'
     ];
     public static $user_update_rules = [
-    	'first'=>'required',
-    	'last'=>'required',
-    	'password'=>'required|min:6'
+    	'first'    => 'required',
+        'last'     => 'required',
+        'password' => 'required|min:6'
     ];
 
 	/**

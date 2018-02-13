@@ -1,6 +1,6 @@
 <?php
 
-class UsersController extends \BaseController {
+class UsersController extends BaseController {
 
 	public function __construct()
 	{
@@ -29,6 +29,7 @@ class UsersController extends \BaseController {
 	public function create()
 	{
 		//
+		return View::make('users.create');
 	}
 
 
@@ -39,7 +40,32 @@ class UsersController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		// validate the input
+        
+        $rules = array(
+            'first'    => 'required',
+            'last'     => 'required',
+            'username' => 'required|max:25',
+            'password' => 'required|min:6'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return Redirect::to('users/create')->withErrors($validator)->withInput(Input::except('password'));
+        } else {
+            // add the new user
+            $user = new User;
+            $user->first     = Input::get('first');
+            $user->last      = Input::get('last');
+            $user->$username = Input::get('username');
+            $user->password  = Hash::make(Input::get('password'));
+            $user->save();
+
+            // redirect
+            Session::flash('message', 'Thank you for registering.');
+            return Redirect::to('users');
+        }
 	}
 
 
@@ -52,6 +78,12 @@ class UsersController extends \BaseController {
 	public function show($id)
 	{
 		//
+		$data = [
+			'first' => $first,
+			'last' => $last,
+			'username' => $username,
+		];
+		return View::make('users.show')->with($data);
 	}
 
 
@@ -96,9 +128,9 @@ class UsersController extends \BaseController {
 			Session::flash('errorMessage', $eMessageValue);
 			return Redirect::back()->withInput()->withErrors($validator);
 		} else {
-			$user->first = Input::get('first');
-			$user->last = Input::get('last');
-			$user->password = Input::get('password');
+			$user->first     = Input::get('first');
+			$user->last      = Input::get('last');
+			$user->password  = Hash::make(Input::get('password'));
 			$user->save();
 		}
 		Session::flash('successMessage', $messageValue);

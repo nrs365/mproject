@@ -11,7 +11,20 @@
 |
 */
 
+
+// default laravel new project home page i keep it for testing views
 Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+// MProject specific
+Route::get('/', 'HomeController@showHome');
+Route::get('login', 'HomeController@doLogin');
+Route::get('logout', 'HomeController@logout');
+Route::get('registration', 'HomeController@showRegistration');
+Route::post('registration', 'HomeController@doRegistration');
+Route::get('thankyou', 'HomeController@showThankYou');
+
+Route::resource('users', 'UsersController');
+Route::resource('clients', 'ClientsController');
