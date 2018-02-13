@@ -31,7 +31,7 @@ class HomeController extends BaseController {
 
 	public function showLogin()
 	{
-	    
+	 	return View::make('login');   
 	}
 	public function showRegistration()
 	{
@@ -44,37 +44,71 @@ class HomeController extends BaseController {
         'first'    => 'required',
         'last'     => 'required',
         'username' => 'required|max:25',
-        'password' => 'required|min:6'
+        'password' => 'required|min:6',
+        'email'    => 'required|email'
         );
         $validator = Validator::make(Input::all(), $rules);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('HomeController@showRegistration')->withErrors($validator)->withInput(Input::except('password'));
+            return Redirect::action('HomeController@showRegistration')->withErrors($validator)->withInput(Input::except('password'));
         } else {  
 			$user = new User;
 			$user->first     = Input::get('first');
 			$user->last      = Input::get('last');
 			$user->username  = Input::get('username');
 			$user->password  = Hash::make(Input::get('password'));
+			$user->email     = Input::get('email');
+
 			$user->save();
 			
 			return Redirect::action('UsersController@show', $user->username);
 		}
 	}
-	public function doLogin($id)
-	{
+	// public function doLogin()
+	// {
 	    
-		$eMessageValue = 'You are not a registered user.';
-	    $user = User::find($id);
-	    if ($user) {
-	    	Auth::loginUsingId($user->id);
-	    	return Redirect::action('UsersController@show');
-	    } else {
-	        Session::flash('errorMessage', $eMessageValue);
-			return Redirect::action('HomeController@showRegistration'); //i'm iffy on this one
-	    }
-	}
+	// 	$eMessageValue = 'You are not a registered user.';
+	//     $user = User::find($id);
+	//     if ($user) {
+	//     	Auth::loginUsingId($user->id);
+	//     	return Redirect::action('UsersController@show');
+	//     } else {
+	//         Session::flash('errorMessage', $eMessageValue);
+	// 		return Redirect::action('HomeController@showRegistration'); //i'm iffy on this one
+	//     }
+	// }
+	public function doLogin()
+    {
+
+        $rules = array(
+            'email'    => 'required|email', 
+            'password' => 'required|min:6'
+        );
+
+
+        $validator = Validator::make(Input::all(), $rules);
+
+
+        if ($validator->fails()) {
+            return Redirect::to('login')
+                ->withErrors($validator)->withInput(Input::except('password')); 
+        } else {
+            $userdata = array(
+                'email'     => Input::get('email'),
+                'password'  => Input::get('password')
+            );
+
+            if (Auth::attempt($userdata)) {
+	            $id = Auth::id();
+	            return Redirect::action('UsersController@show');
+            } else {
+            	return Redirect::action('HomeController@showRegistration');
+
+            }
+
+        }
+    }
 	public function logout()
 	{
 		Auth::logout();

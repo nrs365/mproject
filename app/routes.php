@@ -20,7 +20,8 @@ Route::get('/', function()
 
 // MProject specific
 Route::get('/', 'HomeController@showHome');
-Route::get('login', 'HomeController@doLogin');
+Route::get('login', 'HomeController@showLogin');
+Route::post('login', 'HomeController@doLogin');
 Route::get('logout', 'HomeController@logout');
 Route::get('registration', 'HomeController@showRegistration');
 Route::post('registration', 'HomeController@doRegistration');

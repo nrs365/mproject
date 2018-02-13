@@ -13,8 +13,7 @@ class ClientsController extends BaseController {
         $clients = Client::all();
 
         // load the view and pass the clients
-        return View::make('clients.index')
-            ->with('clients', $clients);
+        return View::make('clients.index')->with('clients', $clients);
 	}
 
 

@@ -20,13 +20,32 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     	'first'    => 'required',
         'last'     => 'required',
         'username' => 'required|max:25',
-        'password' => 'required|min:6'
+        'password' => 'required|min:6',
+        'email'    => 'required|email'
     ];
     public static $user_update_rules = [
     	'first'    => 'required',
         'last'     => 'required',
-        'password' => 'required|min:6'
+        'password' => 'required|min:6',
+        'email'    => 'required|email'
     ];
+
+    //    public function getRememberTokenName()
+    // {
+    //  return null; // not supported
+    // }
+     
+    // /**
+    // * Overrides the method to ignore the remember token.
+    // */
+    // public function setAttribute($key, $value)
+    // {
+    //  $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+    //  if (!$isRememberTokenAttribute)
+    //  {
+    //   parent::setAttribute($key, $value);
+    //  }
+    // }
 
 	/**
 	 * The attributes excluded from the model's JSON form.

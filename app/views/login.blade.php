@@ -3,8 +3,8 @@
 @section('content')
 {{ Form::open(array('action'=>'HomeController@doLogin', 'class'=>'form-signin', 'method'=>'POST')) }}
 <span class="glyphicon glypicon-lock"></span> <h2>Please sign in</h2><br>
-{{ Form::label('username') }}<br>
-{{ Form::text('username') }}<br>
+{{ Form::label('email') }}<br>
+{{ Form::text('email') }}<br>
 {{ Form::label('Password') }}<br>
 {{ Form::password('password') }}<br>
 

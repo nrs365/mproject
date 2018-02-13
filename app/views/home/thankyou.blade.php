@@ -10,6 +10,5 @@
 			<h1 class="font-color h-bold">Thank you for registering!</h1>
 		</div>
 	</div>
-    <br><br><br><br><br>
 </div>
 @stop

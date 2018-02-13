@@ -28,6 +28,12 @@
 		    </div>
 		  </div>
 		  <div class="form-group">
+		  	{{ Form::label('email', 'Email', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('email', Input::old('email'), array('class' => 'form-control', 'placeholder' => 'Email')) }}
+		    </div>
+		  </div>
+		  <div class="form-group">
 		  	{{ Form::label('password', 'Password', array('class' => 'col-sm-2 control-label')) }}
 		    <div class="col-sm-7">
 		    	{{ Form::text('password', Input::old('username'),array('class' => 'form-control', 'placeholder' => 'password')) }}
