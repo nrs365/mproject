@@ -5,7 +5,7 @@
 
     <div class="row">
        
-		<div class="col-md-12 text-center v-center">
+		<div class="col-md-12 text-center">
 		  
 			<h1 class="font-color h-bold">Thank you for registering!</h1>
 		</div>

@@ -10,6 +10,6 @@
 
 {{ Form::checkbox('remember', 'remember', false, ['id' => 'remember']) }}
 {{ Form::label('remember', ' Remember my login') }}<br>
-{{ Form::submit('Log in!', ['class' => 'btn btn-primary btn block']) }}<br>
+{{ Form::submit('Login', ['class' => 'btn btn-primary btn block']) }}<br>
 {{ Form::close() }}
 @stop

@@ -27,6 +27,13 @@
 		</nav>
 
         <div class="container">
+        	@if (Session::has('successMessage'))
+	            <div class="alert alert-success fade_message">{{{ Session::get('successMessage') }}}</div>
+	        @endif
+	        @if (Session::has('errorMessage'))
+	            <div class="alert alert-danger fade_message">{{{ Session::get('errorMessage') }}}</div>
+	        @endif
+
             @yield('content')
         </div>
         <!-- bootstrap js -->

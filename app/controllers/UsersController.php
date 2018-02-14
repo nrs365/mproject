@@ -127,7 +127,7 @@ class UsersController extends BaseController {
 		if ($validator->fails()) {
 		//redirect with errors
 			Session::flash('errorMessage', $eMessageValue);
-			return Redirect::back()->withInput()->withErrors($validator);
+			// return Redirect::back()->withInput()->withErrors($validator);
 		} else {
 			$user->first     = Input::get('first');
 			$user->last      = Input::get('last');

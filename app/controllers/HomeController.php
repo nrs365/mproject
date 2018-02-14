@@ -35,7 +35,10 @@ class HomeController extends BaseController {
 	}
 	public function showRegistration()
 	{
-		return View::make('home.registration');
+		$data = array(
+			'user' => Auth::user()
+		);
+		return View::make('home.registration')->with($data);
 	}
 	public function doRegistration()
 	{
@@ -65,50 +68,24 @@ class HomeController extends BaseController {
 			return Redirect::action('UsersController@show', $user->username);
 		}
 	}
-	// public function doLogin()
-	// {
-	    
-	// 	$eMessageValue = 'You are not a registered user.';
-	//     $user = User::find($id);
-	//     if ($user) {
-	//     	Auth::loginUsingId($user->id);
-	//     	return Redirect::action('UsersController@show');
-	//     } else {
-	//         Session::flash('errorMessage', $eMessageValue);
-	// 		return Redirect::action('HomeController@showRegistration'); //i'm iffy on this one
-	//     }
-	// }
-	public function doLogin()
-    {
 
-        $rules = array(
+	public function doLogin()
+	{
+	    
+		$eMessageValue = 'You are not a registered user.';
+		$rules = array(
             'email'    => 'required|email', 
             'password' => 'required|min:6'
         );
-
-
         $validator = Validator::make(Input::all(), $rules);
-
-
-        if ($validator->fails()) {
-            return Redirect::to('login')
-                ->withErrors($validator)->withInput(Input::except('password')); 
-        } else {
-            $userdata = array(
-                'email'     => Input::get('email'),
-                'password'  => Input::get('password')
-            );
-
-            if (Auth::attempt($userdata)) {
-	            $id = Auth::id();
-	            return Redirect::action('UsersController@show');
-            } else {
-            	return Redirect::action('HomeController@showRegistration');
-
-            }
-
-        }
-    }
+        if (Auth::User()) {
+		   return Redirect::action('UsersController@show');
+	    } else {
+	        Session::flash('errorMessage', $eMessageValue);
+			return Redirect::action('HomeController@showRegistration');
+	    }
+	}
+	
 	public function logout()
 	{
 		Auth::logout();

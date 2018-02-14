@@ -9,6 +9,7 @@ class ClientsController extends BaseController {
 	 */
 	public function index()
 	{
+		$user = Auth::user();
 		// get all the clients
         $clients = Client::all();
 
